@@ -12,19 +12,27 @@ namespace GameJamProject
 
             public override void FixedUpdate()
             {
-                base.FixedUpdate();
-
-                if (this != StateMachine.AirJump && IsGrounded)
+                if (Velocity.y <= 0.1f && IsGrounded)
                 {
-                    if (Velocity.x > 0.0f)
+                    if (Mathf.Abs(Velocity.x) > 0.0f)
                     {
                         ChangeState(StateMachine.GroundWalk);
+                        return;
                     }
-                    else
-                    {
-                        ChangeState(StateMachine.GroundIdle);
-                    }
+
+                    ChangeState(StateMachine.GroundIdle);
+                    return;
                 }
+                
+                var dir = Inputs[0].MoveDir.x == 0.0f ? 0.0f : Mathf.Sign(Inputs[0].MoveDir.x);
+                var targetVelX = dir * Stats.maxAirSpeed;
+                
+                var accel = (Mathf.Sign(dir) != Mathf.Sign(Velocity.x)) ? Stats.airDeceleration : Stats.airAcceleration;
+                var velX = Mathf.MoveTowards(Velocity.x, targetVelX, accel * Time.fixedDeltaTime);
+                
+                Velocity = new Vector2(velX, Velocity.y);
+             
+                base.FixedUpdate();
             }
         }
 
@@ -38,16 +46,15 @@ namespace GameJamProject
         
             public override void FixedUpdate()
             {
-                base.FixedUpdate();
-
                 if (InCoyoteTime && Inputs[0].Jump)
                 {
                     ChangeState(StateMachine.AirJump);
+                    return;
                 }
-                else
-                {
-                    Velocity = new Vector2(Velocity.x, Velocity.y - Stats.fallGravity * Time.fixedDeltaTime);
-                }
+
+                base.FixedUpdate();
+
+                Velocity = new Vector2(Velocity.x, Velocity.y - Stats.fallGravity * Time.fixedDeltaTime);
             }
         }
 
@@ -72,12 +79,14 @@ namespace GameJamProject
             {
                 base.FixedUpdate();
 
-                // Velocity += Vector2.up * (Gravity * Stats.fallGravity * Time.fixedDeltaTime);
-                //
-                // if (!Inputs[0].Jump && Velocity.y > MinJumpVelocity)
-                // {
-                //     Velocity = new Vector2(Velocity.x, MinJumpVelocity);
-                // }
+                if (!Inputs[0].Jump && Velocity.y > MinJumpVelocity)
+                {
+                    Velocity = new Vector2(Velocity.x, MinJumpVelocity);
+                }
+                else
+                {
+                    Velocity = new Vector2(Velocity.x, Velocity.y - Gravity * Time.fixedDeltaTime);
+                }
             }
         }
     }

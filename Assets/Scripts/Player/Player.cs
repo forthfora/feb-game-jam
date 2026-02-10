@@ -13,12 +13,15 @@ namespace GameJamProject
         public Rigidbody2D Rigidbody { get; set; }
         public PlayerInputFrame[] Inputs { get; } = new PlayerInputFrame[20]; // # of frames
 
+        private PlayerInput _playerInput;
+        
         private PlayerStateMachine _stateMachine;
         private PlayerInputFrame _currentInput;
         
         private void Start()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
+            _playerInput = GetComponent<PlayerInput>();
             
             _stateMachine = new(this);
             
@@ -28,6 +31,9 @@ namespace GameJamProject
         private void Update()
         {
             _stateMachine.Update();
+
+            _currentInput.MoveDir = _playerInput.actions["Move"].ReadValue<Vector2>();
+            _currentInput.Jump = _playerInput.actions["Jump"].IsPressed();
         }
 
         private void FixedUpdate()
@@ -37,24 +43,12 @@ namespace GameJamProject
             Inputs.ShiftRight();
             Inputs[0] = _currentInput;
         }
-
-
-        public void OnMove(InputValue value)
-        {
-            _currentInput.MoveDir = value.Get<Vector2>();
-        }
-
-        public void OnJump(InputValue value)
-        {
-            _currentInput.Jump = value.isPressed;
-        }
         
         
         
         void OnGUI()
         {
             var i = 0;
-            AddDebugLabel(ref i, $"Player:");
             AddDebugLabel(ref i, $"Position: {transform.position}");
             AddDebugLabel(ref i, $"Velocity: {Rigidbody.linearVelocity:F2}");
             AddDebugLabel(ref i, $"State: {_stateMachine?.CurrentState.GetType().Name}");

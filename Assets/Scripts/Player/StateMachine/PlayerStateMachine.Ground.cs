@@ -10,18 +10,28 @@ namespace GameJamProject
             {
             }
 
+            public override void Enter(State lastState)
+            {
+                base.Enter(lastState);
+
+                Velocity = new Vector2(Velocity.x, 0.0f);
+            }
+
             public override void FixedUpdate()
             {
-                base.FixedUpdate();
-
                 if (!IsGrounded)
                 {
                     ChangeState(StateMachine.AirFall);
+                    return;
                 }
-                else if (Inputs[0].Jump)
+                
+                if (Inputs[0].Jump)
                 {
                     ChangeState(StateMachine.AirJump);
+                    return;
                 }
+                
+                base.FixedUpdate();
             }
         }
 
@@ -34,18 +44,19 @@ namespace GameJamProject
             public override void Enter(State lastState)
             {
                 base.Enter(lastState);
-                
+
                 Velocity = Vector2.zero;
             }
 
             public override void FixedUpdate()
             {
-                base.FixedUpdate();
-                
                 if (Inputs[0].MoveDir.x != 0.0f)
                 {
                     ChangeState(StateMachine.GroundWalk);
+                    return;
                 }
+                
+                base.FixedUpdate();
             }
         }
 
@@ -57,17 +68,21 @@ namespace GameJamProject
 
             public override void FixedUpdate()
             {
-                base.FixedUpdate();
-                
-                if (Mathf.Abs(Inputs[0].MoveDir.x) == 0.0f)
+                if (Inputs[0].MoveDir.x == 0.0f && Mathf.Abs(Velocity.x) < 0.5f)
                 {
                     ChangeState(StateMachine.GroundIdle);
+                    return;
                 }
-                else
-                {
-                    var dir = Mathf.Sign(Inputs[0].MoveDir.x);
-                    Velocity = new Vector2(Stats.walkSpeed * dir, 0.0f);
-                }
+
+                var dir = Inputs[0].MoveDir.x == 0.0f ? 0.0f : Mathf.Sign(Inputs[0].MoveDir.x);
+                var targetVelX = dir * Stats.maxGroundSpeed;
+                
+                var accel = (Mathf.Sign(dir) != Mathf.Sign(Velocity.x)) ? Stats.groundDeceleration : Stats.groundAcceleration;
+                var velX = Mathf.MoveTowards(Velocity.x, targetVelX, accel * Time.fixedDeltaTime);
+                
+                Velocity = new Vector2(velX, Velocity.y);
+
+                base.FixedUpdate();
             }
         }
     }

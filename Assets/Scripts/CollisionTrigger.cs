@@ -5,27 +5,28 @@ namespace GameJamProject
     public class CollisionTrigger : MonoBehaviour
     {
         public LayerMask layerMask;
+        public bool IsTriggered => _triggerCount > 0;
         
-        public bool IsTriggered { get; private set; }
-        
+        private int _triggerCount;
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if ((layerMask.value & (1 << collision.transform.gameObject.layer)) <= 0)
+            if ((layerMask.value & (1 << collision.gameObject.layer)) <= 0)
             {
                 return;
             }
 
-            IsTriggered = true;
+            _triggerCount++;
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if ((layerMask.value & (1 << collision.transform.gameObject.layer)) <= 0)
+            if ((layerMask.value & (1 << collision.gameObject.layer)) <= 0)
             {
                 return;
             }
-            
-            IsTriggered = false;
+
+            _triggerCount = Mathf.Max(0, _triggerCount - 1);
         }
     }
 }

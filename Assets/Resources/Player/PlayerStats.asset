@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8cf67847814819883e244f94b1d2dc, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::GameJamProject.PlayerStats
-  walkSpeed: 5
+  maxGroundSpeed: 6
+  groundAcceleration: 10
+  groundDeceleration: 100
   fallGravity: 10
   coyoteTime: 0.1
-  maxJumpHeight: 10
+  maxJumpHeight: 3
   minJumpHeight: 1
-  timeToMaxJumpHeight: 1
+  timeToMaxJumpHeight: 0.5
+  maxAirSpeed: 6.5
+  airAcceleration: 10
+  airDeceleration: 10
