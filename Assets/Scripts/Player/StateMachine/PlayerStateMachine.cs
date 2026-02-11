@@ -35,6 +35,8 @@ namespace GameJamProject
             protected PlayerStats Stats => Player.stats;
             protected PlayerInputFrame[] Inputs => Player.Inputs;
 
+            protected abstract string StateAnim { get; }
+
             protected Vector2 Velocity
             {
                 get => Player.Rigidbody.linearVelocity;
@@ -46,6 +48,13 @@ namespace GameJamProject
             protected PlayerState(PlayerStateMachine stateMachine) : base(stateMachine)
             {
                 StateMachine = stateMachine;
+            }
+
+            public override void Enter(State lastState)
+            {
+                base.Enter(lastState);
+
+                Player.Animator.Play(StateAnim);
             }
         }
     }

@@ -7,11 +7,11 @@ namespace GameJamProject
 {
     public class Flashlight : MonoBehaviour
     {
-        public RenderTexture renderTexture;
         public Light2D beamLight;
         public Light2D spotLight;
+        public float lightDelta;
 
-        private bool _isActive;
+        private bool _isActive = true;
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
 
@@ -25,16 +25,16 @@ namespace GameJamProject
         {
             if (_isActive)
             {
-                RotateToMouse();
-
-                beamLight.intensity = Mathf.MoveTowards(beamLight.intensity, _beamMaxIntensity, 0.03f);
-                spotLight.intensity = Mathf.MoveTowards(beamLight.intensity, _spotMaxIntensity, 0.03f);
+                beamLight.intensity = Mathf.MoveTowards(beamLight.intensity, _beamMaxIntensity, lightDelta);
+                spotLight.intensity = Mathf.MoveTowards(spotLight.intensity, _spotMaxIntensity, lightDelta);
             }
             else
             {
-                beamLight.intensity = Mathf.MoveTowards(beamLight.intensity, 0.0f, 0.03f);
-                spotLight.intensity = Mathf.MoveTowards(beamLight.intensity, 0.0f, 0.03f);
+                beamLight.intensity = Mathf.MoveTowards(beamLight.intensity, 0.0f, lightDelta);
+                spotLight.intensity = Mathf.MoveTowards(spotLight.intensity, 0.0f, lightDelta);
             }
+            
+            RotateToMouse();
         }
 
         public void Toggle()
@@ -52,12 +52,8 @@ namespace GameJamProject
             }
             
             var mouseScreen = Mouse.current.position.ReadValue();
-    
-            // Remap mouse position to render texture resolution
-            var x = (mouseScreen.x / Screen.width) * renderTexture.width;
-            var y = (mouseScreen.y / Screen.height) * renderTexture.height;
-    
-            var mouseWorld = mainCam.ScreenToWorldPoint(new Vector3(x, y, -mainCam.transform.position.z));
+            var mouseWorld = mainCam.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, -mainCam.transform.position.z));
+            
             var direction = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             

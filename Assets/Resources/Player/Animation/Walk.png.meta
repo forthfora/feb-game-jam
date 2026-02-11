@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 1193bcdcfbafc754584a10731ab9725a
+guid: 1c7e33a1ef244e044905bb6167b3da60
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3041953011570407716
-    second: walk-sheet_0
+      213: 4035959289877228764
+    second: Walk_0
   - first:
-      213: 92861637878483189
-    second: walk-sheet_1
+      213: -982904232830982447
+    second: Walk_1
   - first:
-      213: 8261662654932328901
-    second: walk-sheet_2
+      213: -350908408369970039
+    second: Walk_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,24 +102,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walk-sheet_0
+      name: Walk_0
       rect:
         serializedVersion: 2
         x: 8
@@ -134,17 +121,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4297516a520373a20800000000000000
-      internalID: 3041953011570407716
+      spriteID: cdce119379b920830800000000000000
+      internalID: 4035959289877228764
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walk-sheet_1
+      name: Walk_1
       rect:
         serializedVersion: 2
         x: 40
+        y: 0
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d6a1e1dec50c52f0800000000000000
+      internalID: -982904232830982447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_2
+      rect:
+        serializedVersion: 2
+        x: 71
         y: 0
         width: 21
         height: 32
@@ -156,30 +165,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5f8020bea29e94100800000000000000
-      internalID: 92861637878483189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: walk-sheet_2
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 0
-        width: 22
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c12a59996257a270800000000000000
-      internalID: 8261662654932328901
+      spriteID: 984096a69a2512bf0800000000000000
+      internalID: -350908408369970039
       vertices: []
       indices: 
       edges: []
@@ -198,9 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      walk-sheet_0: 3041953011570407716
-      walk-sheet_1: 92861637878483189
-      walk-sheet_2: 8261662654932328901
+      Walk_0: 4035959289877228764
+      Walk_1: -982904232830982447
+      Walk_2: -350908408369970039
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

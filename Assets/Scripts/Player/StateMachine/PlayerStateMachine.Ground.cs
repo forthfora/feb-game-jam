@@ -40,6 +40,8 @@ namespace GameJamProject
             public GroundIdleState(PlayerStateMachine stateMachine) : base(stateMachine)
             {
             }
+            
+            protected override string StateAnim => "Idle";
 
             public override void Enter(State lastState)
             {
@@ -65,6 +67,8 @@ namespace GameJamProject
             public GroundWalkState(PlayerStateMachine stateMachine) : base(stateMachine)
             {
             }
+            
+            protected override string StateAnim => "Walk";
 
             public override void FixedUpdate()
             {
