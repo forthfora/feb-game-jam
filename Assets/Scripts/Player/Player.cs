@@ -9,6 +9,7 @@ namespace GameJamProject
     {
         public PlayerStats stats;
         public CollisionTrigger groundTrigger;
+        public Flashlight flashlight;
         
         public Rigidbody2D Rigidbody { get; set; }
         public PlayerInputFrame[] Inputs { get; } = new PlayerInputFrame[20]; // # of frames
@@ -34,6 +35,7 @@ namespace GameJamProject
 
             _currentInput.MoveDir = _playerInput.actions["Move"].ReadValue<Vector2>();
             _currentInput.Jump = _playerInput.actions["Jump"].IsPressed();
+            _currentInput.Flashlight = _playerInput.actions["Flashlight"].IsPressed();
         }
 
         private void FixedUpdate()
@@ -42,6 +44,11 @@ namespace GameJamProject
             
             Inputs.ShiftRight();
             Inputs[0] = _currentInput;
+
+            if (Inputs[0].Flashlight && !Inputs[1].Flashlight)
+            {
+                flashlight.Toggle();
+            }
         }
         
         
