@@ -15,6 +15,11 @@ namespace GameJamProject
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
         private Vector2 _lastPointDirection;
+        
+        // Faster than string lookup
+        private static readonly int TorchWorldPos = Shader.PropertyToID("_TorchWorldPos");
+        private static readonly int TorchPointDir = Shader.PropertyToID("_TorchPointDir");
+        private static readonly int TorchEnabled = Shader.PropertyToID("_TorchEnabled");
 
         private void Start()
         {
@@ -24,8 +29,9 @@ namespace GameJamProject
         
         void Update()
         {
-            Shader.SetGlobalVector("_TorchWorldPos", gameObject.transform.position);
-            Shader.SetGlobalVector("_TorchPointDir", _lastPointDirection);
+            Shader.SetGlobalVector(TorchWorldPos, gameObject.transform.position);
+            Shader.SetGlobalVector(TorchPointDir, _lastPointDirection);
+            Shader.SetGlobalInteger(TorchEnabled, _isActive ? 1 : 0);
         }
 
         private void LateUpdate()
