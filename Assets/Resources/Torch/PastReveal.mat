@@ -70,6 +70,8 @@ Material:
     - _Noise_Speed: 0.2
     - _Noise_Strength: 0.4
     - _Threshold: 0
+    - _Warp_Scale: 1.08
+    - _Warp_Strength: 0.55
     - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
