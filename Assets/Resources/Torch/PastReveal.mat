@@ -61,14 +61,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Cone_Angle: 0.95
+    - _Cone_Angle: 0.92
     - _EnableExternalAlpha: 0
     - _Feather: 0.05
     - _Float: 0
-    - _Noise_Scale: 50
-    - _Noise_Scale_2: 123
-    - _Noise_Speed: 32
-    - _Noise_Strength: 0.03
+    - _Noise_Scale: 3
+    - _Noise_Scale_2: 118.82
+    - _Noise_Speed: 30.85
+    - _Noise_Strength: 0.5
+    - _Threshold: 0
     - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
