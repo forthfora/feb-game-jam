@@ -14,24 +14,32 @@ namespace GameJamProject
         private bool _isActive = true;
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
+        private Vector2 _lastPointDirection;
 
         private void Start()
         {
             _beamMaxIntensity = beamLight.intensity;
             _spotMaxIntensity = spotLight.intensity;
         }
+        
+        void Update()
+        {
+            Shader.SetGlobalVector("_TorchWorldPos", gameObject.transform.position);
+            Shader.SetGlobalVector("_TorchPointDir", _lastPointDirection);
+        }
 
         private void LateUpdate()
         {
+            float d = lightDelta * Time.deltaTime;
             if (_isActive)
             {
-                beamLight.intensity = Mathf.MoveTowards(beamLight.intensity, _beamMaxIntensity, lightDelta);
-                spotLight.intensity = Mathf.MoveTowards(spotLight.intensity, _spotMaxIntensity, lightDelta);
+                beamLight.intensity = Mathf.Lerp(beamLight.intensity, _beamMaxIntensity, d);
+                spotLight.intensity = Mathf.Lerp(spotLight.intensity, _spotMaxIntensity, d);
             }
             else
             {
-                beamLight.intensity = Mathf.MoveTowards(beamLight.intensity, 0.0f, lightDelta);
-                spotLight.intensity = Mathf.MoveTowards(spotLight.intensity, 0.0f, lightDelta);
+                beamLight.intensity = Mathf.Lerp(beamLight.intensity, 0.0f, d);
+                spotLight.intensity = Mathf.Lerp(spotLight.intensity, 0.0f, d);
             }
             
             RotateToMouse();
@@ -58,6 +66,7 @@ namespace GameJamProject
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
             transform.rotation = Quaternion.Euler(0, 0, angle);
+            _lastPointDirection = direction;
         }
     }
 }
