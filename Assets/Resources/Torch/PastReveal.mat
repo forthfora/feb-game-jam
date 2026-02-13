@@ -61,6 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Abberation_Intensity: 0.09
     - _Cone_Angle: 0.92
     - _EnableExternalAlpha: 0
     - _Feather: 0.05
@@ -68,7 +69,7 @@ Material:
     - _Noise_Scale: 2
     - _Noise_Scale_2: 119.43
     - _Noise_Speed: 0.2
-    - _Noise_Strength: 0.4
+    - _Noise_Strength: 0.3
     - _Threshold: 0
     - _Warp_Scale: 1.08
     - _Warp_Strength: 0.55
