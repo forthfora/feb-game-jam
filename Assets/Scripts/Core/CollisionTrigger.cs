@@ -4,14 +4,14 @@ namespace GameJamProject
 {
     public class CollisionTrigger : MonoBehaviour
     {
-        public LayerMask layerMask;
+        public string colliderTag;
         public bool IsTriggered => _triggerCount > 0;
         
         private int _triggerCount;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if ((layerMask.value & (1 << collision.gameObject.layer)) <= 0)
+            if (!collision.gameObject.CompareTag(colliderTag))
             {
                 return;
             }
@@ -21,7 +21,7 @@ namespace GameJamProject
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if ((layerMask.value & (1 << collision.gameObject.layer)) <= 0)
+            if (!collision.gameObject.CompareTag(colliderTag))
             {
                 return;
             }
