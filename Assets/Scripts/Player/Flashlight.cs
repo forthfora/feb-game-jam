@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -26,8 +25,8 @@ namespace GameJamProject
             _beamMaxIntensity = beamLight.intensity;
             _spotMaxIntensity = spotLight.intensity;
         }
-        
-        void Update()
+
+        private void Update()
         {
             Shader.SetGlobalVector(TorchWorldPos, gameObject.transform.position);
             Shader.SetGlobalVector(TorchPointDir, _lastPointDirection);

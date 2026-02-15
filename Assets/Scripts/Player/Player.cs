@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace GameJamProject
 {
@@ -32,8 +30,6 @@ namespace GameJamProject
             _renderer = GetComponent<SpriteRenderer>();
             
             _stateMachine = new(this);
-            
-            DontDestroyOnLoad(this);
         }
 
         private void Update()
@@ -60,10 +56,9 @@ namespace GameJamProject
                 flashlight.Toggle();
             }
         }
-        
-        
-        
-        void OnGUI()
+
+
+        private void OnGUI()
         {
             var i = 0;
             AddDebugLabel(ref i, $"Position: {transform.position}");
