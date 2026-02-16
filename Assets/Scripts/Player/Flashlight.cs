@@ -10,10 +10,12 @@ namespace GameJamProject
         public Light2D spotLight;
         public float lightDelta;
 
-        private bool _isActive = true;
+        public bool IsActive { get; set; }
+        public Vector2 PointDir { get; set; }
+
+        
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
-        private Vector2 _lastPointDirection;
         
         // Faster than string lookup
         private static readonly int TorchWorldPos = Shader.PropertyToID("_TorchWorldPos");
@@ -24,19 +26,23 @@ namespace GameJamProject
         {
             _beamMaxIntensity = beamLight.intensity;
             _spotMaxIntensity = spotLight.intensity;
+
+            beamLight.intensity = 0.0f;
+            spotLight.intensity = 0.0f;
         }
 
         private void Update()
         {
             Shader.SetGlobalVector(TorchWorldPos, gameObject.transform.position);
-            Shader.SetGlobalVector(TorchPointDir, _lastPointDirection);
-            Shader.SetGlobalInteger(TorchEnabled, _isActive ? 1 : 0);
+            Shader.SetGlobalVector(TorchPointDir, PointDir);
+            Shader.SetGlobalInteger(TorchEnabled, IsActive ? 1 : 0);
         }
 
         private void LateUpdate()
         {
-            float d = lightDelta * Time.deltaTime;
-            if (_isActive)
+            var d = lightDelta * Time.deltaTime;
+           
+            if (IsActive)
             {
                 beamLight.intensity = Mathf.Lerp(beamLight.intensity, _beamMaxIntensity, d);
                 spotLight.intensity = Mathf.Lerp(spotLight.intensity, _spotMaxIntensity, d);
@@ -52,12 +58,12 @@ namespace GameJamProject
 
         public void Toggle()
         {
-            _isActive = !_isActive;
+            IsActive = !IsActive;
         }
 
         private void RotateToMouse()
         {
-            var mainCam = Camera.main;
+            var mainCam = Main.Instance.mainCamera;
             
             if (mainCam is null)
             {
@@ -71,7 +77,7 @@ namespace GameJamProject
             var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
             transform.rotation = Quaternion.Euler(0, 0, angle);
-            _lastPointDirection = direction;
+            PointDir = direction;
         }
     }
 }

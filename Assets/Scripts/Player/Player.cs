@@ -40,7 +40,15 @@ namespace GameJamProject
             _currentInput.Jump = _playerInput.actions["Jump"].IsPressed();
             _currentInput.Flashlight = _playerInput.actions["Flashlight"].IsPressed();
 
-            _flipDir = Rigidbody.linearVelocity.x > 0.0f ? 1 : (Rigidbody.linearVelocity.x < 0.0f ? -1 : _flipDir);
+            if (flashlight.IsActive)
+            {
+                _flipDir = flashlight.PointDir.x > 0.0f ? 1 : -1;
+            }
+            else
+            {
+                _flipDir = Rigidbody.linearVelocity.x > 0.0f ? 1 : (Rigidbody.linearVelocity.x < 0.0f ? -1 : _flipDir);
+            }
+            
             _renderer.flipX = _flipDir == -1;
         }
 
