@@ -17,7 +17,7 @@ MonoBehaviour:
   groundDeceleration: 100
   fallGravity: 30
   coyoteTime: 0.1
-  maxJumpHeight: 3
+  maxJumpHeight: 4
   minJumpHeight: 0.2
   timeToMaxJumpHeight: 0.5
   maxAirSpeed: 6

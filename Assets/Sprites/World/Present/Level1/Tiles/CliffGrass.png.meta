@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a00a1fb4c10d3a54299783a0b55e7cc9
+guid: 4ef1c4ac6fe2600458912783a9558559
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3379668710098856634
-    second: GroundUnderBridge(64)_0
+      213: -5134748671237658108
+    second: TransitionToGround(16x)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GrassEnd_0
+      name: CliffGrass
       rect:
         serializedVersion: 2
         x: 0
@@ -126,14 +113,14 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape:
-      - - {x: 6, y: -1}
-        - {x: -8, y: -1}
+      - - {x: -1, y: -8}
+        - {x: -1, y: 8}
+        - {x: -8, y: 8}
         - {x: -8, y: -8}
-        - {x: 6, y: -8}
       tessellationDetail: 0
       bones: []
-      spriteID: 6451e04e6310911d0800000000000000
-      internalID: -3379668710098856634
+      spriteID: 40a68ffd945bdb8b0800000000000000
+      internalID: -5134748671237658108
       vertices: []
       indices: 
       edges: []
@@ -142,7 +129,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e622788cde7ea8d449e7f11f76d6661b
+    spriteID: ba0ea41276b87dc4282b72bb43fd8070
     internalID: 0
     vertices: []
     indices: 
@@ -152,7 +139,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GrassEnd_0: -3379668710098856634
+      CliffGrass: -5134748671237658108
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -58,17 +58,17 @@ namespace GameJamProject
         }
 
 
-        private void OnGUI()
-        {
-            var i = 0;
-            AddDebugLabel(ref i, $"Position: {transform.position}");
-            AddDebugLabel(ref i, $"Velocity: {Rigidbody.linearVelocity:F2}");
-            AddDebugLabel(ref i, $"State: {_stateMachine?.CurrentState.GetType().Name}");
-        }
-
-        private void AddDebugLabel(ref int index, string text)
-        {
-            GUI.Label(new Rect(10, 10 + index++ * 20, 300, 20), text);
-        }
+        // private void OnGUI()
+        // {
+        //     var i = 0;
+        //     AddDebugLabel(ref i, $"Position: {transform.position}");
+        //     AddDebugLabel(ref i, $"Velocity: {Rigidbody.linearVelocity:F2}");
+        //     AddDebugLabel(ref i, $"State: {_stateMachine?.CurrentState.GetType().Name}");
+        // }
+        //
+        // private void AddDebugLabel(ref int index, string text)
+        // {
+        //     GUI.Label(new Rect(10, 10 + index++ * 20, 300, 20), text);
+        // }
     }
 }
