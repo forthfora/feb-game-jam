@@ -65,14 +65,21 @@ namespace GameJamProject
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalFloat(TorchConeAngle, _onOffLerp);
 
-            if (_presentMask is null || _pastMask is null)
+            if (!_presentMask || !_pastMask)
             {
                 return;
             }
             
-            _presentColliders.ForEach(x => x.enabled = !IsActive);
-            _pastColliders.ForEach(x => x.enabled = IsActive);
-            
+            foreach (var x in _presentColliders)
+            {
+                x.enabled = !IsActive;
+            }
+
+            foreach (var x in _pastColliders)
+            {   
+                x.enabled = IsActive;
+            }
+
             _presentMask.transform.position = transform.position;
             _presentMask.transform.rotation = transform.rotation;
             
