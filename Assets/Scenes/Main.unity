@@ -1153,8 +1153,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!43 &1079898666
 Mesh:
   m_ObjectHideFlags: 0
@@ -1470,7 +1468,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158805075}
   m_CullTransparentMesh: 1
->>>>>>> 10f03a36a268669b48d543feff1d9efe73389d0b
 --- !u!1 &1371924987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,9 +1730,7 @@ MonoBehaviour:
   beamLight: {fileID: 735203765}
   spotLight: {fileID: 1371924989}
   lightDelta: 10
-<<<<<<< HEAD
   angle: 25
-=======
 --- !u!1 &1780746333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,7 +1907,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
->>>>>>> 10f03a36a268669b48d543feff1d9efe73389d0b
 --- !u!1 &1871905230
 GameObject:
   m_ObjectHideFlags: 0
@@ -2527,11 +2521,7 @@ MonoBehaviour:
     rid: 6950294740166246469
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-<<<<<<< HEAD
-    m_Mesh: {fileID: 372318277}
-=======
     m_Mesh: {fileID: 1079898666}
->>>>>>> 10f03a36a268669b48d543feff1d9efe73389d0b
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0.11405945, y: 0.19999695, z: 0}
