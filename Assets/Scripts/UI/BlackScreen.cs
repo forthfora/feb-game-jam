@@ -1,6 +1,7 @@
 ﻿    using System;
 using System.Threading;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameJamProject
@@ -18,27 +19,27 @@ namespace GameJamProject
             Shader.SetGlobalFloat(Progress, 0.0f);
         }
 
-        public void FadeIn()
+        public void FadeFromBlack([CanBeNull] Action callback = null)
         {
-            FireAndForget(FadeInAsync);
+            FireAndForget(ct => FadeFromBlackAsync(callback, ct));
         }
 
-        public void FadeOut()
+        public void FadeToBlack([CanBeNull] Action callback = null)
         {
-            FireAndForget(FadeOutAsync);
+            FireAndForget(ct => FadeToBlackAsync(callback, ct));
         }
 
-        public async Task FadeInAsync(CancellationToken ct = default)
+        public async Task FadeFromBlackAsync([CanBeNull] Action callback, CancellationToken ct = default)
         {
-            await TweenProgress(1f, 0f, ct);
+            await TweenProgress(1f, 0f, ct, callback);
         }
 
-        public async Task FadeOutAsync(CancellationToken ct = default)
+        public async Task FadeToBlackAsync([CanBeNull] Action callback, CancellationToken ct = default)
         {
-            await TweenProgress(0f, 1f, ct);
+            await TweenProgress(0f, 1f, ct, callback);
         }
         
-        private async Task TweenProgress(float from, float to, CancellationToken externalCt)
+        private async Task TweenProgress(float from, float to, CancellationToken externalCt, [CanBeNull] Action callback)
         {
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
@@ -68,6 +69,7 @@ namespace GameJamProject
             }
 
             Shader.SetGlobalFloat(Progress, to);
+            callback?.Invoke();
         }
 
         // ReSharper disable Unity.PerformanceAnalysis

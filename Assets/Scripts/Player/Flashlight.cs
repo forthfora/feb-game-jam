@@ -1,9 +1,7 @@
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Tilemaps;
 
 namespace GameJamProject
 {
@@ -14,10 +12,11 @@ namespace GameJamProject
         public bool IsActive { get; set; }
         public Vector2 PointDir { get; set; }
 
-        private GameObject _torchColliderMask;
-        private Collider2D _collider1;
-        private Collider2D _collider2;
-        private Collider2D _collider3;
+        private GameObject _presentMask;
+        private GameObject _pastMask;
+
+        private readonly List<Collider2D> _presentColliders = new();
+        private readonly List<Collider2D> _pastColliders = new();
         
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
@@ -35,24 +34,38 @@ namespace GameJamProject
         // refresh collider for this level
         private void InstanceOnSceneChange()
         {
-            _torchColliderMask = GameObject.FindGameObjectsWithTag("TorchColliderMask").First();
-            _collider1 = _torchColliderMask.GetComponentInParent<CompositeCollider2D>();
-            _collider2 = _torchColliderMask.GetComponentInParent<TilemapCollider2D>();
-            _collider3 = _torchColliderMask.GetComponent<PolygonCollider2D>();
+            _presentMask = GameObject.FindGameObjectsWithTag("PresentMask").First();
+            _pastMask = GameObject.FindGameObjectsWithTag("PastMask").First();
+
+            _presentColliders.Clear();
+            _pastColliders.Clear();
+            
+            _presentColliders.AddRange(_presentMask.GetComponentsInParent<Collider2D>());
+            _presentColliders.Add(_presentMask.GetComponent<Collider2D>());
+            
+            _pastColliders.AddRange(_pastMask.GetComponentsInParent<Collider2D>());
+            _pastColliders.Add(_pastMask.GetComponent<Collider2D>());
         }
         
         private void Update()
         {
+            if (_presentMask is null || _pastMask is null)
+            {
+                return;
+            }
+            
             Shader.SetGlobalVector(TorchWorldPos, transform.position);
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalInteger(TorchEnabled, IsActive ? 1 : 0);
             
-            _collider1.enabled = IsActive;
-            _collider2.enabled = IsActive;
-            _collider3.enabled = IsActive;
+            _presentColliders.ForEach(x => x.enabled = !IsActive);
+            _pastColliders.ForEach(x => x.enabled = IsActive);
             
-            _torchColliderMask.transform.position = transform.position;
-            _torchColliderMask.transform.rotation = transform.rotation;
+            _presentMask.transform.position = transform.position;
+            _presentMask.transform.rotation = transform.rotation;
+            
+            _pastMask.transform.position = transform.position;
+            _pastMask.transform.rotation = transform.rotation;
         }
 
         private void LateUpdate()

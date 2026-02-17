@@ -6,17 +6,18 @@ TagManager:
   tags:
   - Ground
   - CameraBounds
-  - TorchColliderMask
+  - PastMask
+  - PresentMask
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NoCollision
   - Water
   - UI
   - Present
   - Past
-  - 
+  - PresentAndPast
   - 
   - 
   - 

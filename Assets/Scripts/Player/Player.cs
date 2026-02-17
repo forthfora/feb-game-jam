@@ -8,11 +8,14 @@ namespace GameJamProject
         public PlayerStats stats;
         public CollisionTrigger groundTrigger;
         public Flashlight flashlight;
+        public float groundPosInterval;
         
         public Animator Animator { get; set; }
         public Rigidbody2D Rigidbody { get; set; }
         public PlayerInputFrame[] Inputs { get; } = new PlayerInputFrame[20]; // # of frames
 
+        public bool IsGrounded => groundTrigger.IsTriggered;
+        
         private PlayerInput _playerInput;
         private SpriteRenderer _renderer;
         
@@ -20,6 +23,7 @@ namespace GameJamProject
         private PlayerInputFrame _currentInput;
 
         private int _flipDir = 1;
+        private Vector2 _lastGroundPos;
         
         private void Start()
         {
@@ -30,6 +34,7 @@ namespace GameJamProject
             _renderer = GetComponent<SpriteRenderer>();
             
             _stateMachine = new(this);
+            _lastGroundPos = Rigidbody.position;
         }
 
         private void Update()
@@ -50,6 +55,12 @@ namespace GameJamProject
             }
             
             _renderer.flipX = _flipDir == -1;
+
+            // record ground position every x frames
+            if (IsGrounded && Time.frameCount % groundPosInterval == 0)
+            {
+                _lastGroundPos = Rigidbody.position;
+            }
         }
 
         private void FixedUpdate()
@@ -64,19 +75,10 @@ namespace GameJamProject
                 flashlight.Toggle();
             }
         }
-
-
-        // private void OnGUI()
-        // {
-        //     var i = 0;
-        //     AddDebugLabel(ref i, $"Position: {transform.position}");
-        //     AddDebugLabel(ref i, $"Velocity: {Rigidbody.linearVelocity:F2}");
-        //     AddDebugLabel(ref i, $"State: {_stateMachine?.CurrentState.GetType().Name}");
-        // }
-        //
-        // private void AddDebugLabel(ref int index, string text)
-        // {
-        //     GUI.Label(new Rect(10, 10 + index++ * 20, 300, 20), text);
-        // }
+        
+        public void ReturnToLastGround()
+        {
+            Rigidbody.position = _lastGroundPos;
+        }
     }
 }

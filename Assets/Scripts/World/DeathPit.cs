@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace GameJamProject
+﻿namespace GameJamProject
 {
     public class DeathPit : CollisionTrigger
     {
@@ -11,10 +8,15 @@ namespace GameJamProject
         {
             if (IsTriggered && !_wasTriggered)
             {
-                Main.Instance.blackScreen.FadeOut();
+                Main.Instance.blackScreen.FadeToBlack(RespawnPlayer);
             }
 
             _wasTriggered = IsTriggered;
+        }
+
+        private void RespawnPlayer()
+        {
+            Main.Instance.player.ReturnToLastGround();
         }
     }
 }
