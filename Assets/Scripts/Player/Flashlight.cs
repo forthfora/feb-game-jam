@@ -50,6 +50,7 @@ namespace GameJamProject
             _collider1.enabled = IsActive;
             _collider2.enabled = IsActive;
             _collider3.enabled = IsActive;
+            
             _torchColliderMask.transform.position = transform.position;
             _torchColliderMask.transform.rotation = transform.rotation;
         }
