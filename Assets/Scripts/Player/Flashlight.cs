@@ -1,6 +1,8 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Tilemaps;
 
 namespace GameJamProject
 {
@@ -10,9 +12,15 @@ namespace GameJamProject
         public Light2D spotLight;
         public float lightDelta;
 
+        public float angle;
+
         public bool IsActive { get; set; }
         public Vector2 PointDir { get; set; }
 
+        private GameObject _torchColliderMask;
+        private Collider2D _collider1;
+        private Collider2D _collider2;
+        private Collider2D _collider3;
         
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
@@ -29,13 +37,31 @@ namespace GameJamProject
 
             beamLight.intensity = 0.0f;
             spotLight.intensity = 0.0f;
+
+            // _torchColliderMask = GameObject.FindGameObjectsWithTag("TorchColliderMask").First();
         }
 
         private void Update()
         {
-            Shader.SetGlobalVector(TorchWorldPos, gameObject.transform.position);
+            // Doesn't fucking work in Start()
+            if (!_torchColliderMask)
+            {
+                _torchColliderMask = GameObject.FindGameObjectsWithTag("TorchColliderMask").First();
+                _collider1 = _torchColliderMask.GetComponentInParent<CompositeCollider2D>();
+                _collider2 = _torchColliderMask.GetComponentInParent<TilemapCollider2D>();
+                _collider3 = _torchColliderMask.GetComponent<PolygonCollider2D>();
+            }
+                
+            
+            Shader.SetGlobalVector(TorchWorldPos, transform.position);
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalInteger(TorchEnabled, IsActive ? 1 : 0);
+            
+            _collider1.enabled = IsActive;
+            _collider2.enabled = IsActive;
+            _collider3.enabled = IsActive;
+            _torchColliderMask.transform.position = transform.position;
+            _torchColliderMask.transform.rotation = transform.rotation;
         }
 
         private void LateUpdate()

@@ -9,9 +9,9 @@ namespace GameJamProject
         
         private int _triggerCount;
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!collision.gameObject.CompareTag(colliderTag))
+            if (!other.gameObject.CompareTag(colliderTag))
             {
                 return;
             }
@@ -19,9 +19,9 @@ namespace GameJamProject
             _triggerCount++;
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            if (!collision.gameObject.CompareTag(colliderTag))
+            if (!other.gameObject.CompareTag(colliderTag))
             {
                 return;
             }

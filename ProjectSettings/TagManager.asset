@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - CameraBounds
+  - TorchColliderMask
   layers:
   - Default
   - TransparentFX
