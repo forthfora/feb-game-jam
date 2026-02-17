@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,10 +9,6 @@ namespace GameJamProject
 {
     public class Flashlight : MonoBehaviour
     {
-        public Light2D beamLight;
-        public Light2D spotLight;
-        public float lightDelta;
-
         public float angle;
 
         public bool IsActive { get; set; }
@@ -32,27 +29,20 @@ namespace GameJamProject
 
         private void Start()
         {
-            _beamMaxIntensity = beamLight.intensity;
-            _spotMaxIntensity = spotLight.intensity;
-
-            beamLight.intensity = 0.0f;
-            spotLight.intensity = 0.0f;
-
-            // _torchColliderMask = GameObject.FindGameObjectsWithTag("TorchColliderMask").First();
+            Main.Instance.SceneChange += InstanceOnSceneChange;
         }
 
+        // refresh collider for this level
+        private void InstanceOnSceneChange()
+        {
+            _torchColliderMask = GameObject.FindGameObjectsWithTag("TorchColliderMask").First();
+            _collider1 = _torchColliderMask.GetComponentInParent<CompositeCollider2D>();
+            _collider2 = _torchColliderMask.GetComponentInParent<TilemapCollider2D>();
+            _collider3 = _torchColliderMask.GetComponent<PolygonCollider2D>();
+        }
+        
         private void Update()
         {
-            // Doesn't fucking work in Start()
-            if (!_torchColliderMask)
-            {
-                _torchColliderMask = GameObject.FindGameObjectsWithTag("TorchColliderMask").First();
-                _collider1 = _torchColliderMask.GetComponentInParent<CompositeCollider2D>();
-                _collider2 = _torchColliderMask.GetComponentInParent<TilemapCollider2D>();
-                _collider3 = _torchColliderMask.GetComponent<PolygonCollider2D>();
-            }
-                
-            
             Shader.SetGlobalVector(TorchWorldPos, transform.position);
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalInteger(TorchEnabled, IsActive ? 1 : 0);
@@ -66,19 +56,6 @@ namespace GameJamProject
 
         private void LateUpdate()
         {
-            var d = lightDelta * Time.deltaTime;
-           
-            if (IsActive)
-            {
-                beamLight.intensity = Mathf.Lerp(beamLight.intensity, _beamMaxIntensity, d);
-                spotLight.intensity = Mathf.Lerp(spotLight.intensity, _spotMaxIntensity, d);
-            }
-            else
-            {
-                beamLight.intensity = Mathf.Lerp(beamLight.intensity, 0.0f, d);
-                spotLight.intensity = Mathf.Lerp(spotLight.intensity, 0.0f, d);
-            }
-            
             RotateToMouse();
         }
 
@@ -100,9 +77,9 @@ namespace GameJamProject
             var mouseWorld = mainCam.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, -mainCam.transform.position.z));
             
             var direction = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
-            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var lightAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.rotation = Quaternion.Euler(0, 0, lightAngle);
             PointDir = direction;
         }
     }

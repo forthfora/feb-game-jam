@@ -23,6 +23,8 @@ namespace GameJamProject
         public BlackScreen blackScreen;
         
         public string defaultScene;
+
+        public event Action SceneChange;
         
         private void Awake()
         {
@@ -45,6 +47,11 @@ namespace GameJamProject
 
         private void SceneManagerOnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (scene.name == "Main")
+            {
+                return;
+            }
+            
             var bounds = GameObject.FindGameObjectsWithTag("CameraBounds").FirstOrDefault();
 
             if (bounds is null)
@@ -60,6 +67,8 @@ namespace GameJamProject
             var confiner = cinemachineCamera.GetComponent<CinemachineConfiner2D>();
 
             confiner.BoundingShape2D = boundsCollider;
+            
+            SceneChange?.Invoke();
         }
     }
 }
