@@ -7,7 +7,9 @@ namespace GameJamProject
 {
     public class Flashlight : MonoBehaviour
     {
-        public float angle;
+        public float onValue;
+        public float offValue;
+        public float timeToOnOff;
 
         public bool IsActive { get; set; }
         public Vector2 PointDir { get; set; }
@@ -20,15 +22,23 @@ namespace GameJamProject
         
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
+
+        private float _onOffLerp;
+        private float _onOffVel;
         
         // Faster than string lookup
         private static readonly int TorchWorldPos = Shader.PropertyToID("_TorchWorldPos");
         private static readonly int TorchPointDir = Shader.PropertyToID("_TorchPointDir");
+        private static readonly int TorchConeAngle = Shader.PropertyToID("_ConeAngle");
         private static readonly int TorchEnabled = Shader.PropertyToID("_TorchEnabled");
 
         private void Start()
         {
             Main.Instance.SceneChange += InstanceOnSceneChange;
+            
+            Shader.SetGlobalInteger(TorchEnabled, 1);
+            
+            _onOffLerp = offValue;
         }
 
         // refresh collider for this level
@@ -49,14 +59,16 @@ namespace GameJamProject
         
         private void Update()
         {
+            _onOffLerp = Mathf.SmoothDamp(_onOffLerp, IsActive ? onValue : offValue, ref _onOffVel, timeToOnOff);
+
+            Shader.SetGlobalVector(TorchWorldPos, transform.position);
+            Shader.SetGlobalVector(TorchPointDir, PointDir);
+            Shader.SetGlobalFloat(TorchConeAngle, _onOffLerp);
+
             if (_presentMask is null || _pastMask is null)
             {
                 return;
             }
-            
-            Shader.SetGlobalVector(TorchWorldPos, transform.position);
-            Shader.SetGlobalVector(TorchPointDir, PointDir);
-            Shader.SetGlobalInteger(TorchEnabled, IsActive ? 1 : 0);
             
             _presentColliders.ForEach(x => x.enabled = !IsActive);
             _pastColliders.ForEach(x => x.enabled = IsActive);

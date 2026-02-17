@@ -8,6 +8,7 @@ TagManager:
   - CameraBounds
   - PastMask
   - PresentMask
+  - TorchColliderMask
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Present
   - Past
   - PresentAndPast
-  - 
+  - NoPostProcessing
   - 
   - 
   - 

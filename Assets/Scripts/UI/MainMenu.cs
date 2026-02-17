@@ -7,12 +7,13 @@ namespace GameJamProject
     {
         public Button startGameButton;
         public Button quitGameButton;
-        public float fadeLerp;
+        public float timeToFade;
 
         public bool IsVisible { get; set; } = true;
 
         private bool _acceptInput = true;
         private CanvasGroup _canvasGroup;
+        private float _fadeVel;
 
         private void Start()
         {
@@ -24,7 +25,7 @@ namespace GameJamProject
 
         private void Update()
         {
-            _canvasGroup.alpha = Mathf.MoveTowards(_canvasGroup.alpha, IsVisible ? 1.0f : 0.0f, fadeLerp * Time.deltaTime);
+            _canvasGroup.alpha = Mathf.SmoothDamp(_canvasGroup.alpha, IsVisible ? 1.0f : 0.0f, ref _fadeVel, timeToFade);
 
             startGameButton.enabled = _acceptInput;
             startGameButton.enabled = _acceptInput;
