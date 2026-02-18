@@ -61,7 +61,7 @@ namespace GameJamProject
         {
             _onOffLerp = Mathf.SmoothDamp(_onOffLerp, IsActive ? onValue : offValue, ref _onOffVel, timeToOnOff);
 
-            Shader.SetGlobalVector(TorchWorldPos, transform.position);
+            Shader.SetGlobalVector(TorchWorldPos, Camera.main.WorldToViewportPoint(transform.position));
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalFloat(TorchConeAngle, _onOffLerp);
 
