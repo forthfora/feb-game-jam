@@ -16,6 +16,7 @@ namespace GameJamProject
         public bool IsInputActive { get; set; }
 
         public bool IsGrounded => groundTrigger.IsTriggered;
+        public bool StandingOnPast => IsGrounded && groundTrigger.LastColliderLayer == LayerMask.NameToLayer("Past");
 
         private PlayerInput _playerInput;
         private SpriteRenderer _renderer;
@@ -80,7 +81,7 @@ namespace GameJamProject
             }
             
             // record ground position every x frames
-            if (IsGrounded && Main.Instance.FixedFrameCount % groundPosInterval == 0)
+            if (IsGrounded && Main.Instance.FixedFrameCount % groundPosInterval == 0 && !StandingOnPast)
             {
                 _lastGroundPos = Rigidbody.position;
             }
