@@ -6,7 +6,7 @@ namespace GameJamProject
     {
         public string colliderTag;
         public bool IsTriggered => _triggerCount > 0;
-        
+
         private int _triggerCount;
 
         private void OnTriggerEnter2D(Collider2D other)

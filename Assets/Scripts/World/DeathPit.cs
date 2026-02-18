@@ -17,6 +17,8 @@
         private void RespawnPlayer()
         {
             Main.Instance.player.ReturnToLastGround();
+            Main.Instance.SnapCameraToPlayer();
+            Main.Instance.blackScreen.FadeFromBlack();
         }
     }
 }

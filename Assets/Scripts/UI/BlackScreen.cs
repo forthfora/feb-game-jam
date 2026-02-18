@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -16,72 +16,58 @@ namespace GameJamProject
 
         private void Awake()
         {
-            Shader.SetGlobalFloat(Progress, 0.0f);
+            Shader.SetGlobalFloat(Progress, 0f);
         }
 
         public void FadeFromBlack([CanBeNull] Action callback = null)
         {
-            FireAndForget(ct => FadeFromBlackAsync(callback, ct));
+            FireAndForget(ct => TweenProgress(1f, 0f, ct), callback);
         }
 
         public void FadeToBlack([CanBeNull] Action callback = null)
         {
-            FireAndForget(ct => FadeToBlackAsync(callback, ct));
+            FireAndForget(ct => TweenProgress(0f, 1f, ct), callback);
         }
 
-        public async Task FadeFromBlackAsync([CanBeNull] Action callback, CancellationToken ct = default)
-        {
-            await TweenProgress(1f, 0f, ct, callback);
-        }
-
-        public async Task FadeToBlackAsync([CanBeNull] Action callback, CancellationToken ct = default)
-        {
-            await TweenProgress(0f, 1f, ct, callback);
-        }
-        
-        private async Task TweenProgress(float from, float to, CancellationToken externalCt, [CanBeNull] Action callback)
+        private async Task TweenProgress(float from, float to, CancellationToken externalCt)
         {
             _cts?.Cancel();
+            _cts?.Dispose();
             _cts = new CancellationTokenSource();
 
             using var linked = CancellationTokenSource.CreateLinkedTokenSource(_cts.Token, externalCt);
             var token = linked.Token;
 
-            var elapsed = 0f;
-            
             Shader.SetGlobalFloat(Progress, from);
+
+            var elapsed = 0f;
 
             while (elapsed < duration)
             {
-                if (token.IsCancellationRequested)
-                {
-                    return;
-                }
+                token.ThrowIfCancellationRequested();
 
                 elapsed += Time.deltaTime;
-                
-                var t = Mathf.Clamp01(elapsed / duration);
+                var t      = Mathf.Clamp01(elapsed / duration);
                 var curved = easeCurve.Evaluate(t);
-                
                 Shader.SetGlobalFloat(Progress, Mathf.Lerp(from, to, curved));
 
                 await Task.Yield();
             }
 
             Shader.SetGlobalFloat(Progress, to);
-            callback?.Invoke();
         }
 
-        // ReSharper disable Unity.PerformanceAnalysis
-        private async void FireAndForget(Func<CancellationToken, Task> fn)
+        private async void FireAndForget(Func<CancellationToken, Task> fn, [CanBeNull] Action callback)
         {
             try
             {
                 await fn(destroyCancellationToken);
+                callback?.Invoke();
             }
+            catch (OperationCanceledException) { }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                Debug.LogException(e);
             }
         }
     }

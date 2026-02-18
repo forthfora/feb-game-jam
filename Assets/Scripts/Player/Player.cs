@@ -15,7 +15,7 @@ namespace GameJamProject
         public PlayerInputFrame[] Inputs { get; } = new PlayerInputFrame[20]; // # of frames
 
         public bool IsGrounded => groundTrigger.IsTriggered;
-        
+
         private PlayerInput _playerInput;
         private SpriteRenderer _renderer;
         
@@ -55,12 +55,6 @@ namespace GameJamProject
             }
             
             _renderer.flipX = _flipDir == -1;
-
-            // record ground position every x frames
-            if (IsGrounded && Time.frameCount % groundPosInterval == 0)
-            {
-                _lastGroundPos = Rigidbody.position;
-            }
         }
 
         private void FixedUpdate()
@@ -74,11 +68,27 @@ namespace GameJamProject
             {
                 flashlight.Toggle();
             }
+            
+            // record ground position every x frames
+            if (IsGrounded && Main.Instance.FixedFrameCount % groundPosInterval == 0)
+            {
+                _lastGroundPos = Rigidbody.position;
+            }
         }
         
         public void ReturnToLastGround()
         {
             Rigidbody.position = _lastGroundPos;
+        }
+
+        public void DisableInput()
+        {
+            _playerInput.currentActionMap.Disable();
+        }
+
+        public void EnableInput()
+        {
+            _playerInput.currentActionMap.Enable();
         }
     }
 }

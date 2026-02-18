@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -20,12 +19,12 @@ namespace GameJamProject
         
         public Player player;
         public Camera mainCamera;
-        public CinemachineCamera cinemachineCamera;
-        
+        public CinemachineCamera vCam;
         public BlackScreen blackScreen;
-        
         public string defaultScene;
 
+        public int FixedFrameCount { get; private set; }
+        
         public event Action SceneChange;
         
         private void Awake()
@@ -45,6 +44,11 @@ namespace GameJamProject
         private void Start()
         {
             SceneManager.LoadScene(defaultScene);
+        }
+
+        private void FixedUpdate()
+        {
+            FixedFrameCount++;
         }
 
         private void SceneManagerOnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -73,12 +77,19 @@ namespace GameJamProject
                 throw new Exception("No collider found on camera bounds");
             }
 
-            var confiner = cinemachineCamera.GetComponent<CinemachineConfiner2D>();
+            var confiner = vCam.GetComponent<CinemachineConfiner2D>();
 
             confiner.BoundingShape2D = boundsCollider;
             confiner.InvalidateBoundingShapeCache();
             
             SceneChange?.Invoke();
+        }
+
+        public void SnapCameraToPlayer()
+        {
+            vCam.PreviousStateIsValid = false;
+            vCam.gameObject.SetActive(false);
+            vCam.gameObject.SetActive(true);
         }
     }
 }
