@@ -43,7 +43,7 @@ namespace GameJamProject
                 set => Player.Rigidbody.linearVelocity = value;
             }
 
-            protected bool IsGrounded => Player.groundTrigger.IsTriggered;
+            protected bool IsGrounded => Player.IsGrounded;
             
             protected PlayerState(PlayerStateMachine stateMachine) : base(stateMachine)
             {

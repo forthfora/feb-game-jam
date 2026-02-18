@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -23,6 +25,8 @@ namespace GameJamProject
         public BlackScreen blackScreen;
         
         public string defaultScene;
+
+        public event Action SceneChange;
         
         private void Awake()
         {
@@ -45,6 +49,18 @@ namespace GameJamProject
 
         private void SceneManagerOnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            StartCoroutine(SceneFullyLoaded(scene));
+        }
+        
+        private IEnumerator SceneFullyLoaded(Scene scene)
+        {
+            yield return null; // Wait one frame for everything to initialize
+            
+            if (scene.name == "Main")
+            {
+                yield break;
+            }
+            
             var bounds = GameObject.FindGameObjectsWithTag("CameraBounds").FirstOrDefault();
 
             if (bounds is null)
@@ -60,6 +76,9 @@ namespace GameJamProject
             var confiner = cinemachineCamera.GetComponent<CinemachineConfiner2D>();
 
             confiner.BoundingShape2D = boundsCollider;
+            confiner.InvalidateBoundingShapeCache();
+            
+            SceneChange?.Invoke();
         }
     }
 }

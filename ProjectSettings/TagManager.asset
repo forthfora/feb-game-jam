@@ -6,18 +6,20 @@ TagManager:
   tags:
   - Ground
   - CameraBounds
+  - PastMask
+  - PresentMask
   - TorchColliderMask
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - NoCollision
   - Water
   - UI
   - Present
   - Past
-  - 
-  - 
+  - PresentAndPast
+  - NoPostProcessing
   - 
   - 
   - 
@@ -43,6 +45,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Present
+    uniqueID: 1207777407
+    locked: 0
+  - name: Past
+    uniqueID: 1073031603
     locked: 0
   m_RenderingLayers:
   - Default
