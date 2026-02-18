@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace GameJamProject
@@ -21,7 +22,9 @@ namespace GameJamProject
         public Camera mainCamera;
         public CinemachineCamera vCam;
         public BlackScreen blackScreen;
+        public MainMenu mainMenu;
         public string defaultScene;
+        public bool normalStartup;
 
         public int FixedFrameCount { get; private set; }
         
@@ -41,9 +44,28 @@ namespace GameJamProject
             SceneManager.sceneLoaded += SceneManagerOnSceneLoaded;
         }
         
-        private void Start()
+        private IEnumerator Start()
         {
             SceneManager.LoadScene(defaultScene);
+
+            if (normalStartup)
+            {
+                blackScreen.SetBlack();
+
+                yield return new WaitForSeconds(1.0f);
+                
+                GoToMainMenu();
+                blackScreen.FadeFromBlack();
+            }
+        }
+
+        private void Update()
+        {
+            // TODO: just for debug maybe add a pause menu 
+            if (Application.isEditor && Keyboard.current.escapeKey.wasPressedThisFrame && !mainMenu.isVisible)
+            {
+                GoToMainMenu();
+            }
         }
 
         private void FixedUpdate()
@@ -90,6 +112,33 @@ namespace GameJamProject
             vCam.PreviousStateIsValid = false;
             vCam.gameObject.SetActive(false);
             vCam.gameObject.SetActive(true);
+        }
+        
+        private void GoToMainMenu()
+        {
+            mainMenu.Show();
+            
+            player.IsInputActive = false;
+            player.transform.position = new Vector3(0.0f, -1.0f, 0.0f);
+        }
+
+        public void ReturnToMainMenu()
+        {
+            blackScreen.FadeToBlack(() =>
+            {
+                SceneManager.LoadScene("Level1");
+                
+                GoToMainMenu();
+                
+                blackScreen.SetBlack();
+                blackScreen.FadeFromBlack();
+            });
+        }
+
+        public void IntroSequence()
+        {
+            // TODO
+            player.IsInputActive = true;
         }
     }
 }

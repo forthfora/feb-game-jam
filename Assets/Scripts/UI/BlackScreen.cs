@@ -16,8 +16,23 @@ namespace GameJamProject
 
         private void Awake()
         {
-            Shader.SetGlobalFloat(Progress, 0f);
+            SetClear();
         }
+        
+        public void SetBlack()
+        {
+            Shader.SetGlobalFloat(Progress, 1.0f);
+            _cts?.Cancel();
+            _cts?.Dispose();
+        }
+        
+        public void SetClear()
+        {
+            Shader.SetGlobalFloat(Progress, 0.0f);
+            _cts?.Cancel();
+            _cts?.Dispose();
+        }
+
 
         public void FadeFromBlack([CanBeNull] Action callback = null)
         {
@@ -28,7 +43,7 @@ namespace GameJamProject
         {
             FireAndForget(ct => TweenProgress(0f, 1f, ct), callback);
         }
-
+        
         private async Task TweenProgress(float from, float to, CancellationToken externalCt)
         {
             _cts?.Cancel();
@@ -47,8 +62,10 @@ namespace GameJamProject
                 token.ThrowIfCancellationRequested();
 
                 elapsed += Time.deltaTime;
-                var t      = Mathf.Clamp01(elapsed / duration);
+                
+                var t = Mathf.Clamp01(elapsed / duration);
                 var curved = easeCurve.Evaluate(t);
+                
                 Shader.SetGlobalFloat(Progress, Mathf.Lerp(from, to, curved));
 
                 await Task.Yield();

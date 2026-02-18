@@ -30,10 +30,22 @@ namespace GameJamProject
             startGameButton.enabled = _acceptInput;
         }
 
-        private void OnStartGameClick()
+        public void Show()
+        {
+            isVisible = true;
+            _acceptInput = true;
+        }
+
+        public void Hide()
         {
             isVisible = false;
             _acceptInput = false;
+        }
+
+        private void OnStartGameClick()
+        {
+            Hide();
+            Main.Instance.IntroSequence();
         }
         
         private void OnQuitGameClick()

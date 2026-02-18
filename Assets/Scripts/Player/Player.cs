@@ -13,6 +13,7 @@ namespace GameJamProject
         public Animator Animator { get; set; }
         public Rigidbody2D Rigidbody { get; set; }
         public PlayerInputFrame[] Inputs { get; } = new PlayerInputFrame[20]; // # of frames
+        public bool IsInputActive { get; set; }
 
         public bool IsGrounded => groundTrigger.IsTriggered;
 
@@ -62,8 +63,17 @@ namespace GameJamProject
             _stateMachine.FixedUpdate();
             
             Inputs.ShiftRight();
-            Inputs[0] = _currentInput;
 
+            if (IsInputActive)
+            {
+                Inputs[0] = _currentInput;
+            }
+            else
+            {
+                Inputs[0] = new PlayerInputFrame();
+                
+            }
+            
             if (Inputs[0].Flashlight && !Inputs[1].Flashlight)
             {
                 flashlight.Toggle();
@@ -79,16 +89,6 @@ namespace GameJamProject
         public void ReturnToLastGround()
         {
             Rigidbody.position = _lastGroundPos;
-        }
-
-        public void DisableInput()
-        {
-            _playerInput.currentActionMap.Disable();
-        }
-
-        public void EnableInput()
-        {
-            _playerInput.currentActionMap.Enable();
         }
     }
 }
