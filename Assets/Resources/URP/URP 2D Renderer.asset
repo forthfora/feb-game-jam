@@ -67,9 +67,9 @@ MonoBehaviour:
     probeSamplingDebugTexture: {fileID: 0}
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
-  - {fileID: -8108716429003920414}
   - {fileID: 2227901704074343886}
-  m_RendererFeatureMap: e2ebd8a05e0d788fceb5d6c1cb18eb1e
+  - {fileID: -8108716429003920414}
+  m_RendererFeatureMap: ceb5d6c1cb18eb1ee2ebd8a05e0d788f
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2

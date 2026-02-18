@@ -5,11 +5,10 @@ namespace GameJamProject
 {
     public class MainMenu : MonoBehaviour
     {
+        public bool isVisible = true;
+        public float timeToFade;
         public Button startGameButton;
         public Button quitGameButton;
-        public float timeToFade;
-
-        public bool IsVisible { get; set; } = true;
 
         private bool _acceptInput = true;
         private CanvasGroup _canvasGroup;
@@ -25,7 +24,7 @@ namespace GameJamProject
 
         private void Update()
         {
-            _canvasGroup.alpha = Mathf.SmoothDamp(_canvasGroup.alpha, IsVisible ? 1.0f : 0.0f, ref _fadeVel, timeToFade);
+            _canvasGroup.alpha = Mathf.SmoothDamp(_canvasGroup.alpha, isVisible ? 1.0f : 0.0f, ref _fadeVel, timeToFade);
 
             startGameButton.enabled = _acceptInput;
             startGameButton.enabled = _acceptInput;
@@ -33,7 +32,7 @@ namespace GameJamProject
 
         private void OnStartGameClick()
         {
-            IsVisible = false;
+            isVisible = false;
             _acceptInput = false;
         }
         
