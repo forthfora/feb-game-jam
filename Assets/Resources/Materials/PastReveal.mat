@@ -44,11 +44,11 @@ Material:
     - _Abberation_Intensity: 0
     - _Cutoff: 0.02
     - _IsCosmetic: 0
-    - _Noise_Scale: 75
-    - _Noise_Speed: 0.01
+    - _Noise_Scale: 3
+    - _Noise_Speed: 0.2
     - _Threshold: 0
     - _TorchNoiseStrength: 0.2
-    - _Warp_Scale: 0.1
+    - _Warp_Scale: 1
     - _Warp_Strength: 0.56
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}

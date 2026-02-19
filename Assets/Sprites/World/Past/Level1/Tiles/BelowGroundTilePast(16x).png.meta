@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db29d04d31d1b794896a775dde17f34f
+guid: 75db28f469806f84e8bc878f0514c9c9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4233990963447945017
-    second: GroundUnderBridge2Past(16x)_0
+      213: 8066917775461607423
+    second: BelowGroundTilePast(16x)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GroundUnderBridge2Past(16x)_0
+      name: BelowGroundTilePast(16x)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7c8a871c6a7dd35c0800000000000000
-      internalID: -4233990963447945017
+      spriteID: ff76ca6f9f273ff60800000000000000
+      internalID: 8066917775461607423
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GroundUnderBridge2Past(16x)_0: -4233990963447945017
+      BelowGroundTilePast(16x)_0: 8066917775461607423
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

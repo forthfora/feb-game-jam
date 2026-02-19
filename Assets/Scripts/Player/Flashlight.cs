@@ -26,11 +26,13 @@ namespace GameJamProject
         private float _onOffLerp;
         private float _onOffVel;
         
+        
         // Faster than string lookup
-        private static readonly int TorchWorldPos = Shader.PropertyToID("_TorchWorldPos");
+        private static readonly int TorchWorldPos = Shader.PropertyToID("_TorchScreenPos");
         private static readonly int TorchPointDir = Shader.PropertyToID("_TorchPointDir");
         private static readonly int TorchConeAngle = Shader.PropertyToID("_ConeAngle");
         private static readonly int TorchEnabled = Shader.PropertyToID("_TorchEnabled");
+        private Camera _mainCam;
 
         private void Start()
         {
@@ -38,6 +40,7 @@ namespace GameJamProject
             
             Shader.SetGlobalInteger(TorchEnabled, 1);
             
+            _mainCam = Camera.main;
             _onOffLerp = offValue;
         }
 
@@ -61,7 +64,7 @@ namespace GameJamProject
         {
             _onOffLerp = Mathf.SmoothDamp(_onOffLerp, IsActive ? onValue : offValue, ref _onOffVel, timeToOnOff);
 
-            Shader.SetGlobalVector(TorchWorldPos, Camera.main.WorldToViewportPoint(transform.position));
+            Shader.SetGlobalVector(TorchWorldPos, _mainCam.WorldToViewportPoint(transform.position));
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalFloat(TorchConeAngle, _onOffLerp);
 

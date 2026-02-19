@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 276859794713b7b478e6d759b4df95ef
+guid: 619baf166c3141147aa18d01e1e60062
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3641401076649842182
-    second: TrainsitionToUndergroundPast(16x)_0
+      213: 1676945610022643231
+    second: TransitionVerticalPast2(16x)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TrainsitionToUndergroundPast(16x)_0
+      name: TransitionVerticalPast2(16x)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
+        width: 12
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 606507a7cfad88230800000000000000
-      internalID: 3641401076649842182
+      spriteID: f16ec01c525b54710800000000000000
+      internalID: 1676945610022643231
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TrainsitionToUndergroundPast(16x)_0: 3641401076649842182
+      TransitionVerticalPast2(16x)_0: 1676945610022643231
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
