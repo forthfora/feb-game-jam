@@ -58,10 +58,6 @@ namespace GameJamProject
             
             _pastColliders.AddRange(_pastMask.GetComponentsInParent<Collider2D>());
             _pastColliders.Add(_pastMask.GetComponent<Collider2D>());
-            
-            Debug.Log("New scene");
-            foreach (var x in _pastColliders)
-                Debug.Log(x);
         }
         
         private void Update()
