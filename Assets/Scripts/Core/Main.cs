@@ -29,6 +29,7 @@ namespace GameJamProject
         public int FixedFrameCount { get; private set; }
         
         public event Action SceneChange;
+        public Flashlight flashlight {get => player.flashlight;}
         
         private void Awake()
         {

@@ -8,6 +8,7 @@
         {
             if (IsTriggered && !_wasTriggered)
             {
+                Main.Instance.flashlight.IsActive = false;
                 Main.Instance.blackScreen.FadeToBlack(RespawnPlayer);
             }
 
