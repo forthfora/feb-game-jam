@@ -42,7 +42,7 @@ namespace GameJamProject
             {
             }
 
-            protected override string StateAnim => "Idle";
+            protected override string StateAnim => "Jump";
 
             public bool InCoyoteTime => LastState is GroundState && TimeSinceEntered < Stats.coyoteTime;
         
@@ -66,7 +66,7 @@ namespace GameJamProject
             {
             }
             
-            protected override string StateAnim => "Idle";
+            protected override string StateAnim => "Jump";
 
             private float Gravity => 2.0f * Stats.maxJumpHeight / Mathf.Pow(Stats.timeToMaxJumpHeight, 2.0f);
             private float MaxJumpVelocity => Mathf.Abs(Gravity) * Stats.timeToMaxJumpHeight;
