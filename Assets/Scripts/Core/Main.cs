@@ -24,6 +24,7 @@ namespace GameJamProject
         public BlackScreen blackScreen;
         public MainMenu mainMenu;
         public MainAudioController audioController;
+        public DialogueBox dialogueBox;
         public string defaultScene;
         public bool normalStartup;
 
