@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameJamProject
@@ -23,18 +20,10 @@ namespace GameJamProject
             returnToMainMenuButton.enabled = AcceptInput;
         }
 
-        private async void OnReturnToMainMenuClick()
+        private void OnReturnToMainMenuClick()
         {
-            try
-            {
-                await Hide();
-            
-                Main.Instance.ReturnToMainMenu();
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
+            _ = Hide(null);
+            Main.Instance.ReturnToMainMenu();
         }
     }
 }

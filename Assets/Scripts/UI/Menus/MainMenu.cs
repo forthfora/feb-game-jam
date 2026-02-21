@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,18 +24,9 @@ namespace GameJamProject
             quitGameButton.enabled = AcceptInput;
         }
         
-        private async void OnStartGameClick()
+        private void OnStartGameClick()
         {
-            try
-            {
-                await Hide();
-            
-                Main.Instance.IntroSequence();
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
+            StartCoroutine(Hide(Main.Instance.IntroSequence));
         }
         
         private void OnQuitGameClick()

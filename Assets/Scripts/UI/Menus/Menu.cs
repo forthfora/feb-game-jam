@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace GameJamProject
@@ -31,20 +33,22 @@ namespace GameJamProject
             AcceptInput = true;
         }
 
-        public async Task Hide()
+        public IEnumerator Hide([CanBeNull] Action callback)
         {
             isVisible = false;
             AcceptInput = false;
             
             while (Mathf.Abs(_canvasGroup.alpha - TargetAlpha) > 0.01f)
             {
-                await Task.Yield();
+                yield return null;
             }
+            
+            callback?.Invoke();
         }
 
         public void HideNow()
         {
-            _ = Hide();
+            StartCoroutine(Hide(null));
             _canvasGroup.alpha = 0.0f;
         }
     }   
