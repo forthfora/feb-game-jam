@@ -12,25 +12,25 @@ namespace GameJamProject
     {
         public static Main Instance { get; set; }
         
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        public static void Init()
-        {
-            Instance = null;
-        }
-        
         public Player player;
+        public MainAudioController audioController;
+        
+        [Header("Cameras")]
         public Camera mainCamera;
         public CinemachineCamera vCam;
+        
+        [Header("Menus")]
         public BlackScreen blackScreen;
         public MainMenu mainMenu;
-        public MainAudioController audioController;
+        public DemoEnd demoEnd;
+        
+        [Header("Startup")]
         public string defaultScene;
         public bool normalStartup;
 
         public int FixedFrameCount { get; private set; }
         
         public event Action SceneChange;
-        public Flashlight flashlight => player.flashlight;
 
         private void Awake()
         {
@@ -56,7 +56,10 @@ namespace GameJamProject
 
                 yield return new WaitForSeconds(1.0f);
                 
+                demoEnd.HideNow();
+                
                 GoToMainMenu();
+                
                 blackScreen.FadeFromBlack();
             }
             else
@@ -64,6 +67,8 @@ namespace GameJamProject
                 yield return new WaitForEndOfFrame();
                 
                 mainMenu.HideNow();
+                demoEnd.HideNow();
+                
                 player.IsInputActive = true;
             }
         }
