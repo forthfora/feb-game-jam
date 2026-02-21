@@ -42,6 +42,13 @@ namespace GameJamProject
             _acceptInput = false;
         }
 
+        public void HideNow()
+        {
+            Hide();
+            
+            _canvasGroup.alpha = 0.0f;
+        }
+
         private void OnStartGameClick()
         {
             Hide();
@@ -58,5 +65,6 @@ namespace GameJamProject
         {
             Application.Quit();
         }
+
     }
 }

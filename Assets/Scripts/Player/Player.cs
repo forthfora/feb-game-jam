@@ -53,6 +53,11 @@ namespace GameJamProject
             _currentInput.Jump = _playerInput.actions["Jump"].IsPressed();
             _currentInput.Flashlight = _playerInput.actions["Flashlight"].IsPressed();
 
+            if (IsInputActive)
+            {
+                flashlight.RotateToMouse();
+            }
+
             if (flashlight.IsActive)
             {
                 _flipDir = flashlight.PointDir.x > 0.0f ? 1 : -1;

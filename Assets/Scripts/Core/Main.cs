@@ -61,7 +61,10 @@ namespace GameJamProject
             }
             else
             {
-                mainMenu.Hide();
+                yield return new WaitForEndOfFrame();
+                
+                mainMenu.HideNow();
+                player.IsInputActive = true;
             }
         }
 

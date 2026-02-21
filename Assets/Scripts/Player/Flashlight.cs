@@ -11,9 +11,15 @@ namespace GameJamProject
         public float offValue;
         public float timeToOnOff;
 
+        public Sprite onSprite;
+        public Sprite offSprite;
+
         public bool IsActive { get; set; }
         public Vector2 PointDir { get; set; }
 
+        private SpriteRenderer _spriteRenderer;
+        private Camera _mainCam;
+        
         private GameObject _presentMask;
         private GameObject _pastMask;
 
@@ -32,7 +38,6 @@ namespace GameJamProject
         private static readonly int TorchPointDir = Shader.PropertyToID("_TorchPointDir");
         private static readonly int TorchConeAngle = Shader.PropertyToID("_ConeAngle");
         private static readonly int TorchEnabled = Shader.PropertyToID("_TorchEnabled");
-        private Camera _mainCam;
 
         private void Start()
         {
@@ -42,6 +47,8 @@ namespace GameJamProject
             
             _mainCam = Camera.main;
             _onOffLerp = offValue;
+
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
 
         // refresh collider for this level
@@ -68,6 +75,8 @@ namespace GameJamProject
             Shader.SetGlobalVector(TorchPointDir, PointDir);
             Shader.SetGlobalFloat(TorchConeAngle, _onOffLerp);
 
+            _spriteRenderer.sprite = IsActive ? onSprite : offSprite;
+
             if (!_presentMask || !_pastMask)
             {
                 return;
@@ -90,17 +99,12 @@ namespace GameJamProject
             _pastMask.transform.rotation = transform.rotation;
         }
 
-        private void LateUpdate()
-        {
-            RotateToMouse();
-        }
-
         public void Toggle()
         {
             IsActive = !IsActive;
         }
 
-        private void RotateToMouse()
+        public void RotateToMouse()
         {
             var mainCam = Main.Instance.mainCamera;
             
