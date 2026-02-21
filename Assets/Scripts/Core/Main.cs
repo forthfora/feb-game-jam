@@ -23,6 +23,7 @@ namespace GameJamProject
         public CinemachineCamera vCam;
         public BlackScreen blackScreen;
         public MainMenu mainMenu;
+        public MainAudioController audioController;
         public string defaultScene;
         public bool normalStartup;
 
@@ -140,6 +141,7 @@ namespace GameJamProject
         {
             // TODO
             player.IsInputActive = true;
+            audioController.PlaySound(1);
         }
     }
 }
