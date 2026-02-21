@@ -6,7 +6,11 @@ namespace GameJamProject
     public class Player : MonoBehaviour
     {
         public PlayerStats stats;
+        
         public CollisionTrigger groundTrigger;
+        public CollisionTrigger safeTriggerL;
+        public CollisionTrigger safeTriggerR;
+        
         public Flashlight flashlight;
         public float groundPosInterval;
         
@@ -16,7 +20,9 @@ namespace GameJamProject
         public bool IsInputActive { get; set; }
 
         public bool IsGrounded => groundTrigger.IsTriggered;
-        public bool StandingOnPast => IsGrounded && groundTrigger.LastColliderLayer == LayerMask.NameToLayer("Past");
+        public bool IsOnSafeGround => safeTriggerL.IsTriggered && safeTriggerR.IsTriggered
+                                                               && safeTriggerL.LastColliderLayer != LayerMask.NameToLayer("Past")
+                                                               && safeTriggerR.LastColliderLayer != LayerMask.NameToLayer("Past");
 
         private PlayerInput _playerInput;
         private SpriteRenderer _renderer;
@@ -81,7 +87,7 @@ namespace GameJamProject
             }
             
             // record ground position every x frames
-            if (IsGrounded && Main.Instance.FixedFrameCount % groundPosInterval == 0 && !StandingOnPast)
+            if (IsOnSafeGround && Main.Instance.FixedFrameCount % groundPosInterval == 0)
             {
                 _lastGroundPos = Rigidbody.position;
             }

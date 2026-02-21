@@ -59,6 +59,10 @@ namespace GameJamProject
                 GoToMainMenu();
                 blackScreen.FadeFromBlack();
             }
+            else
+            {
+                mainMenu.Hide();
+            }
         }
 
         private void Update()
