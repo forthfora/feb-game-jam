@@ -102,5 +102,24 @@ namespace GameJamProject
         {
             Rigidbody.position = _lastGroundPos;
         }
+        
+        private void OnGUI()
+        {
+            if (!Application.isEditor)
+            {
+                return;
+            }
+            
+            var i = 0;
+            AddDebugLabel(ref i, $"Position: {transform.position}");
+            AddDebugLabel(ref i, $"Velocity: {Rigidbody.linearVelocity:F2}");
+            AddDebugLabel(ref i, $"State: {_stateMachine?.CurrentState.GetType().Name}");
+            AddDebugLabel(ref i, $"GroundPos: {_lastGroundPos}");
+        }
+
+        private void AddDebugLabel(ref int index, string text)
+        {
+            GUI.Label(new Rect(10, 10 + index++ * 20, 300, 20), text);
+        }
     }
 }
