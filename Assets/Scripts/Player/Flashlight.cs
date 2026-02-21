@@ -23,8 +23,7 @@ namespace GameJamProject
         private GameObject _presentMask;
         private GameObject _pastMask;
 
-        private readonly List<Collider2D> _presentColliders = new();
-        private readonly List<Collider2D> _pastColliders = new();
+        private readonly List<Collider2D> _colliders = new();
         
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
@@ -57,14 +56,12 @@ namespace GameJamProject
             _presentMask = GameObject.FindGameObjectsWithTag("PresentMask").First();
             _pastMask = GameObject.FindGameObjectsWithTag("PastMask").First();
 
-            _presentColliders.Clear();
-            _pastColliders.Clear();
+            _colliders.Clear();
             
-            _presentColliders.AddRange(_presentMask.GetComponentsInParent<Collider2D>());
-            _presentColliders.Add(_presentMask.GetComponent<Collider2D>());
+            _colliders.AddRange(_pastMask.GetComponentsInParent<Collider2D>());
+            _colliders.Add(_pastMask.GetComponent<Collider2D>());
+            _colliders.Add(_presentMask.GetComponent<Collider2D>());
             
-            _pastColliders.AddRange(_pastMask.GetComponentsInParent<Collider2D>());
-            _pastColliders.Add(_pastMask.GetComponent<Collider2D>());
         }
         
         private void Update()
@@ -82,13 +79,8 @@ namespace GameJamProject
                 return;
             }
             
-            foreach (var x in _presentColliders)
+            foreach (var x in _colliders)
             {
-                x.enabled = !IsActive;
-            }
-
-            foreach (var x in _pastColliders)
-            {   
                 x.enabled = IsActive;
             }
 

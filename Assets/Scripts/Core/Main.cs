@@ -14,6 +14,7 @@ namespace GameJamProject
         
         public Player player;
         public MainAudioController audioController;
+        public DialogueBox dialogueBox;
         
         [Header("Cameras")]
         public Camera mainCamera;
