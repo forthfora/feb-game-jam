@@ -1,6 +1,6 @@
 ﻿namespace GameJamProject
 {
-    public class DeathPit : CollisionTrigger
+    public class DeathPitTrigger : CollisionTrigger
     {
         private bool _wasTriggered;
         
@@ -8,7 +8,7 @@
         {
             if (IsTriggered && !_wasTriggered)
             {
-                Main.Instance.flashlight.IsActive = false;
+                Main.Instance.player.flashlight.IsActive = false;
                 Main.Instance.blackScreen.FadeToBlack(RespawnPlayer);
             }
 
