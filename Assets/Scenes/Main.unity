@@ -1287,7 +1287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 29.527893, y: -0.17001343}
+  m_AnchoredPosition: {x: 29.527832, y: -0.17001343}
   m_SizeDelta: {x: 191.8951, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &631946583
@@ -1557,7 +1557,7 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!43 &825493690
+--- !u!43 &958593227
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2731,7 +2731,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 29.528, y: -44}
+  m_AnchoredPosition: {x: 29.527954, y: -44}
   m_SizeDelta: {x: 161.6351, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1882816830
@@ -3201,7 +3201,7 @@ MonoBehaviour:
     rid: 6950294740166246469
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 825493690}
+    m_Mesh: {fileID: 958593227}
     m_LocalBounds:
       m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 0.44999695, y: 0.94999695, z: 0}
