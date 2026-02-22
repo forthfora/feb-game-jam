@@ -1,4 +1,3 @@
-using System;
 using GameJamProject;
 using UnityEngine;
 
