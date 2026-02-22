@@ -135,6 +135,7 @@ namespace GameJamProject
             
             player.IsInputActive = false;
             player.transform.position = new Vector3(0.0f, -1.0f, 0.0f);
+            SnapCameraToPlayer();
         }
 
         public void ReturnToMainMenu()
@@ -178,14 +179,6 @@ namespace GameJamProject
             SnapCameraToPlayer();
             blackScreen.FadeFromBlack();
             
-            endTime = Time.time + timeToFade;
-            
-            while (Time.time < endTime)
-            {
-                player.Inputs[0].MoveDir = moveDir;
-                yield return null; 
-            }
-
             player.IsInputActive = true;
         }
     }

@@ -22,8 +22,10 @@ namespace GameJamProject
 
         private void OnReturnToMainMenuClick()
         {
-            _ = Hide(null);
-            Main.Instance.ReturnToMainMenu();
+            StartCoroutine(Hide(() =>
+            {
+                Main.Instance.ReturnToMainMenu();
+            }));
         }
     }
 }

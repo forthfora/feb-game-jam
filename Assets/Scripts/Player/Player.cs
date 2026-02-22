@@ -21,8 +21,8 @@ namespace GameJamProject
 
         public bool IsGrounded => groundTrigger.IsTriggered;
         public bool IsOnSafeGround => safeTriggerL.IsTriggered && safeTriggerR.IsTriggered
-                                                               && safeTriggerL.LastColliderLayer != LayerMask.NameToLayer("Past")
-                                                               && safeTriggerR.LastColliderLayer != LayerMask.NameToLayer("Past");
+                                                               && safeTriggerL.LastColliderLayer != LayerMask.NameToLayer("Past") && safeTriggerR.LastColliderLayer != LayerMask.NameToLayer("Past") 
+                                                               && safeTriggerL.LastColliderLayer != LayerMask.NameToLayer("Present") && safeTriggerR.LastColliderLayer != LayerMask.NameToLayer("Present");
 
         private PlayerInput _playerInput;
         private SpriteRenderer _renderer;
