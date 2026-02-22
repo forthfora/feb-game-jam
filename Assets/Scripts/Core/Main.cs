@@ -131,6 +131,7 @@ namespace GameJamProject
         
         private void GoToMainMenu()
         {
+            audioController.PlaySound(0);
             mainMenu.Show();
             
             player.IsInputActive = false;

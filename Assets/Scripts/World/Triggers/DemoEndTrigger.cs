@@ -22,6 +22,7 @@ namespace GameJamProject
         private IEnumerator GoToDemoScreen()
         {
             Main.Instance.player.IsInputActive = false;
+            Main.Instance.player.flashlight.IsActive = false;
          
             var endTime = Time.time + timeToFade;
 
