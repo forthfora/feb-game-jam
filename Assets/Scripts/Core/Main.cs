@@ -31,7 +31,7 @@ namespace GameJamProject
 
         public int FixedFrameCount { get; private set; }
         
-        public event Action SceneChange;
+        public event Action<string> SceneChange;
 
         private void Awake()
         {
@@ -119,7 +119,7 @@ namespace GameJamProject
             confiner.BoundingShape2D = boundsCollider;
             confiner.InvalidateBoundingShapeCache();
             
-            SceneChange?.Invoke();
+            SceneChange?.Invoke(scene.name);
         }
 
         public void SnapCameraToPlayer()

@@ -21,6 +21,7 @@ namespace GameJamProject
 
         private SpriteRenderer _spriteRenderer;
         private Camera _mainCam;
+        private AudioSource _audioSource;
         
         private GameObject _presentMask;
         private GameObject _pastMask;
@@ -54,10 +55,11 @@ namespace GameJamProject
             _radiusLerp = offRadius;
 
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         // refresh collider for this level
-        private void InstanceOnSceneChange()
+        private void InstanceOnSceneChange(string sceneName)
         {
             _presentMask = GameObject.FindGameObjectsWithTag("PresentMask").First();
             _pastMask = GameObject.FindGameObjectsWithTag("PastMask").First();
@@ -102,6 +104,7 @@ namespace GameJamProject
         public void Toggle()
         {
             IsActive = !IsActive;
+            _audioSource.Play();
         }
 
         public void RotateToMouse()

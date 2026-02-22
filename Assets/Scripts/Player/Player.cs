@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 namespace GameJamProject
@@ -13,6 +14,9 @@ namespace GameJamProject
         
         public Flashlight flashlight;
         public float groundPosInterval;
+        
+        public AudioResource grassFootsteps;
+        public AudioResource concreteFootsteps;
         
         public Animator Animator { get; set; }
         public Rigidbody2D Rigidbody { get; set; }
@@ -36,6 +40,7 @@ namespace GameJamProject
         
         private void Start()
         {
+            Main.Instance.SceneChange += InstanceOnSceneChange;
             Rigidbody = GetComponent<Rigidbody2D>();
             Animator = GetComponent<Animator>();
             
@@ -46,7 +51,11 @@ namespace GameJamProject
             _stateMachine = new(this);
             _lastGroundPos = Rigidbody.position;
         }
-
+        
+        private void InstanceOnSceneChange(string sceneName)
+        {
+            _audioSource.resource = sceneName == "Level2" ? concreteFootsteps :  grassFootsteps;
+        }
         private void Update()
         {
             _stateMachine.Update();
