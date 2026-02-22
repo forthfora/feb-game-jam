@@ -5,7 +5,7 @@ namespace GameJamProject
 {
     public class DemoEndTrigger : CollisionTrigger
     {
-        public float timeToFade = 2.0f;
+        public float timeToFade = 5.0f;
         
         private bool _wasTriggered;
         
