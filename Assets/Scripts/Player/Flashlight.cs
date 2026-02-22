@@ -7,8 +7,10 @@ namespace GameJamProject
 {
     public class Flashlight : MonoBehaviour
     {
-        public float onValue;
-        public float offValue;
+        public float onAngle;
+        public float offAngle;
+        public float onRadius;
+        public float offRadius;
         public float timeToOnOff;
 
         public Sprite onSprite;
@@ -28,14 +30,17 @@ namespace GameJamProject
         private float _beamMaxIntensity;
         private float _spotMaxIntensity;
 
-        private float _onOffLerp;
-        private float _onOffVel;
+        private float _angleLerp;
+        private float _radiusLerp;
+        private float _onOffVelAngle;
+        private float _onOffVelRadius;
         
         
         // Faster than string lookup
         private static readonly int TorchWorldPos = Shader.PropertyToID("_TorchScreenPos");
         private static readonly int TorchPointDir = Shader.PropertyToID("_TorchPointDir");
         private static readonly int TorchConeAngle = Shader.PropertyToID("_ConeAngle");
+        private static readonly int TorchRadius = Shader.PropertyToID("_Radius");
         private static readonly int TorchEnabled = Shader.PropertyToID("_TorchEnabled");
 
         private void Start()
@@ -45,7 +50,8 @@ namespace GameJamProject
             Shader.SetGlobalInteger(TorchEnabled, 1);
             
             _mainCam = Camera.main;
-            _onOffLerp = offValue;
+            _angleLerp = offAngle;
+            _radiusLerp = offRadius;
 
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }
@@ -66,11 +72,13 @@ namespace GameJamProject
         
         private void Update()
         {
-            _onOffLerp = Mathf.SmoothDamp(_onOffLerp, IsActive ? onValue : offValue, ref _onOffVel, timeToOnOff);
+            _angleLerp  = Mathf.SmoothDamp(_angleLerp, IsActive ? onAngle : offAngle, ref _onOffVelAngle, timeToOnOff);
+            _radiusLerp = Mathf.SmoothDamp(_radiusLerp, IsActive ? onRadius : offRadius, ref _onOffVelRadius, timeToOnOff);
 
-            Shader.SetGlobalVector(TorchWorldPos, _mainCam.WorldToViewportPoint(transform.position));
+            Shader.SetGlobalVector(TorchWorldPos, _mainCam.WorldToScreenPoint(transform.position));
             Shader.SetGlobalVector(TorchPointDir, PointDir);
-            Shader.SetGlobalFloat(TorchConeAngle, _onOffLerp);
+            Shader.SetGlobalFloat(TorchConeAngle, _angleLerp);
+            Shader.SetGlobalFloat(TorchRadius, _radiusLerp);
 
             _spriteRenderer.sprite = IsActive ? onSprite : offSprite;
 
