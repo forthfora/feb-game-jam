@@ -156,5 +156,37 @@ namespace GameJamProject
             player.IsInputActive = true;
             audioController.PlaySound(1);
         }
+
+        public IEnumerator TransitionLevel(Vector2 moveDir, float timeToFade, string nextLevel, Vector2 nextLevelPos)
+        {
+            player.IsInputActive = false;
+         
+            var endTime = Time.time + timeToFade;
+
+            blackScreen.FadeToBlack();
+            
+            while (Time.time < endTime)
+            {
+                player.Inputs[0].MoveDir = moveDir;
+                yield return null; 
+            }
+            
+            SceneManager.LoadScene(nextLevel);
+
+            player.transform.position = nextLevelPos;
+            
+            SnapCameraToPlayer();
+            blackScreen.FadeFromBlack();
+            
+            endTime = Time.time + timeToFade;
+            
+            while (Time.time < endTime)
+            {
+                player.Inputs[0].MoveDir = moveDir;
+                yield return null; 
+            }
+
+            player.IsInputActive = true;
+        }
     }
 }
