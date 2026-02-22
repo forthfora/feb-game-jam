@@ -26,6 +26,7 @@ namespace GameJamProject
 
         private PlayerInput _playerInput;
         private SpriteRenderer _renderer;
+        private AudioSource _audioSource;
         
         private PlayerStateMachine _stateMachine;
         private PlayerInputFrame _currentInput;
@@ -40,6 +41,7 @@ namespace GameJamProject
             
             _playerInput = GetComponent<PlayerInput>();
             _renderer = GetComponent<SpriteRenderer>();
+            _audioSource = GetComponent<AudioSource>();
             
             _stateMachine = new(this);
             _lastGroundPos = Rigidbody.position;
@@ -96,6 +98,11 @@ namespace GameJamProject
             {
                 _lastGroundPos = Rigidbody.position;
             }
+        }
+
+        public void PlayFoostep()
+        {
+            _audioSource.Play();
         }
         
         public void ReturnToLastGround()
