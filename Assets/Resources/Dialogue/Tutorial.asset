@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial
   m_EditorClassIdentifier: Assembly-CSharp::GameJamProject.DialogueLines
   lines:
-  - Sybau
-  - Kys
-  - Lowkey win us the game
+  - Use WASD to move and space to jump
+  - Use left mouse button to toggle the torch
+  - The torch allows you to peak into the past and get past obstacle
+  - Enjoy :)
